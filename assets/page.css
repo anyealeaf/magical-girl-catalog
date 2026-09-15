@@ -1007,3 +1007,23 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 }
 .icon-pick-name { font-size: 11px; word-break: break-all; line-height: 1.25; }
 .icon-pick-dir { font-size: 10px; color: var(--muted); }
+
+/* ==========================================================================
+   工具类
+   --------------------------------------------------------------------------
+   ⚠️ 为什么要有这些看起来多余的类：页面的 CSP 是 `style-src 'self'`，**没有**
+   `unsafe-inline`。于是 `el('div', { style: '...' })`（即 setAttribute('style')）
+   会被浏览器**静默丢掉** —— 不报错、不生效，只是看起来「设计成这样」。
+   曾经首页封面就是用这种方式设的 background-image，结果是**封面从来没显示过**。
+   要动态设样式，用 CSSOM（`node.style.backgroundImage = ...`，CSP 不管它）；
+   静态样式一律走这里的类。
+   ========================================================================== */
+
+.w-full { width: 100%; }
+.mt-4 { margin-top: 4px; }
+.mt-8 { margin-top: 8px; }
+.mt-14 { margin-top: 14px; }
+.mt-22 { margin-top: 22px; }
+.wrap-flush { padding-bottom: 0; }
+.field-inline { display: flex; align-items: center; gap: 9px; }
+.btn-inline { display: inline-block; margin-top: 14px; }

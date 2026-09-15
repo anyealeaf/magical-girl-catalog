@@ -122,6 +122,13 @@
   /**
    * 建 DOM。attrs.text 走 textContent（**不用 innerHTML** —— 内容可能来自
    * 用户输入，别引入 XSS）；on* 走 addEventListener。
+   *
+   * ⚠️ **刻意不支持 `style`**。页面的 CSP 是 `style-src 'self'`（无 unsafe-inline），
+   * `setAttribute('style', ...)` 会被浏览器**静默丢弃** —— 不报错、不生效，
+   * 只留下一句容易忽略的 CSP 警告。首页封面就是这么整整一版没显示出来的。
+   * 这里直接拒绝并打日志，把「静默失效」变成「开发期就看得见的错」。
+   * 要动态设样式用 CSSOM（`node.style.backgroundImage = ...`，CSP 不管它），
+   * 静态样式写进 page.css 的类。
    */
   function el(tag, attrs, children) {
     var node = document.createElement(tag)
@@ -131,7 +138,13 @@
         if (v === null || v === undefined || v === false) continue
         if (k === 'text') node.textContent = String(v)
         else if (k === 'class') node.className = v
-        else if (k === 'style') node.setAttribute('style', v)
+        else if (k === 'style')
+          console.error(
+            '[mgc] el() 不接受 style（页面 CSP 会把它丢掉）—— 改用 CSS 类，或 node.style.xxx = ...：' +
+              String(tag) +
+              ' ' +
+              String(v),
+          )
         else if (k.slice(0, 2) === 'on' && typeof v === 'function') node.addEventListener(k.slice(2), v)
         else if (v === true) node.setAttribute(k, '')
         else node.setAttribute(k, String(v))
@@ -412,9 +425,8 @@
             el('div', { class: 'big', text: '⚠️' }),
             el('div', { text: '读不到数据：' + state.bootError }),
             el('button', {
-              class: 'btn btn-primary',
+              class: 'btn btn-primary mt-14',
               text: '重试',
-              style: 'margin-top:14px',
               onclick: function () {
                 boot()
               },
@@ -432,7 +444,7 @@
 
     if (state.warning) {
       v.appendChild(
-        el('div', { class: 'wrap', style: 'padding-bottom:0' }, [
+        el('div', { class: 'wrap wrap-flush' }, [
           el('p', { class: 'dialog-error', text: '⚠️ ' + state.warning }),
         ]),
       )
@@ -450,9 +462,13 @@
     var hero = el('section', { class: 'hero' })
 
     if (s.coverImageUrl) {
-      hero.appendChild(
-        el('div', { class: 'hero-bg', style: 'background-image:url("' + cssUrl(s.coverImageUrl) + '")' }),
-      )
+      // ⚠️ 必须用 CSSOM 设背景，不能写成 { style: 'background-image:...' }。
+      // 后者是 setAttribute('style')，会被页面的 CSP（style-src 'self'，无
+      // unsafe-inline）**静默丢掉** —— 首页封面图因此一整个不显示，而且
+      // Console 里只有一条容易被忽略的 CSP 警告。CSSOM 不受 CSP 管辖。
+      var bg = el('div', { class: 'hero-bg' })
+      bg.style.backgroundImage = 'url("' + cssUrl(s.coverImageUrl) + '")'
+      hero.appendChild(bg)
     }
     hero.appendChild(el('div', { class: 'hero-scrim' }))
 
@@ -756,7 +772,7 @@
     if (!list.length) {
       box.appendChild(el('div', { class: 'rel-connector' }))
       box.appendChild(
-        el('div', { class: 'empty', style: 'width:100%' }, [
+        el('div', { class: 'empty w-full' }, [
           el('div', { text: '这个角色的关系网还没有录入' }),
           el('div', {
             class: 'hint',
@@ -1079,7 +1095,7 @@
 
       if (state.unlocked && !READONLY) {
         holder.appendChild(
-          el('div', { class: 'entry-tools', style: 'margin-top:8px' }, [
+          el('div', { class: 'entry-tools mt-8' }, [
             el('button', {
               class: 'btn btn-ghost btn-sm',
               type: 'button',
@@ -1121,10 +1137,9 @@
           el('div', { class: 'big', text: '🔍' }),
           el('div', { text: '找不到这个角色（可能已被删除）' }),
           el('a', {
-            class: 'btn btn-primary',
+            class: 'btn btn-primary btn-inline',
             href: '#/characters',
             text: '回到图鉴',
-            style: 'display:inline-block;margin-top:14px',
           }),
         ]),
       )
@@ -1198,7 +1213,7 @@
 
     // ② 关系网
     wrap.appendChild(
-      el('section', { class: 'detail-section', style: 'margin-top:22px' }, [
+      el('section', { class: 'detail-section mt-22' }, [
         el('h2', { text: '关系网' }),
         renderRelations(ch),
       ]),
@@ -1476,14 +1491,14 @@
         draft.hidden = cb.checked
       })
       body.appendChild(
-        el('label', { class: 'field', style: 'display:flex;align-items:center;gap:9px' }, [
+        el('label', { class: 'field field-inline' }, [
           cb,
           el('span', { text: '在网页上隐藏这个条目（内容仍在，作者可见）' }),
         ]),
       )
 
       body.appendChild(
-        el('div', { style: 'margin-top:4px' }, [
+        el('div', { class: 'mt-4' }, [
           el('button', {
             class: 'btn btn-danger btn-sm',
             type: 'button',
