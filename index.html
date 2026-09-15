@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>魔法少女目录</title>
+<!--
+  这个文件里**没有内联 <style>/<script>**，所以服务端可以发一份严格 CSP
+  （script-src 'self'，无 unsafe-inline）。要加样式改 page.css，加逻辑改 page.js。
+  加内联脚本或 onclick="..." 会在浏览器里被静默拒掉 —— 见 README。
+
+  #mgc-config 由服务端替换成注入的运行时配置（api 前缀、是否已解锁）。
+  它只是「配置」不是「逻辑」，CSP 不拦 application/json。
+-->
+<link rel="stylesheet" href="assets/page.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+<script type="application/json" id="mgc-config">{"base":".","api":"./api","unlocked":false,"hasKey":false,"readonly":true}</script>
+<script type="application/json" id="mgc-data">{"version":1,"settings":{"coverImage":"assets/cover/封面.jpg","title":"魔法少女目录","subtitle":"世界观 · 角色 · 大事件","footerNote":"","coverImageUrl":"assets/cover/封面.jpg","imageDirs":[]},"world":[],"characters":[{"id":"char_linhan","realName":"林晗","codename":"晕彩","height":"142cm（晕彩形态）／175cm（林晗常态）","age":"28岁","level":"果级（被林晚枝封印至初入花级）","weapon":"裁光、折光、棱镜辉光","magic":"析光","domain":"未明示","icon":"🌙","images":["assets/char/魔法少女晕彩.jpg","assets/char/晕彩开华.jpg","assets/char/晕彩开华2.jpg","assets/char/睡衣晕彩.jpg","assets/char/晕彩.jpg"],"connections":[{"id":"char_anruosu","label":"养女（不原谅但仍是父女）"},{"id":"char_qiyao","label":"长期伙伴与君臣（近似家人的爱慕对象）"},{"id":"char_linwanzhi","label":"失散十年的妹妹"},{"id":"char_baibo","label":"技术同僚"},{"id":"char_luoluo","label":"侍从精灵与共犯"},{"id":"char_sutaoyao","label":"前学生（现已高度不信任）"},{"id":"char_tina","label":"前队员（现已高度不信任）"},{"id":"char_jianqing","label":"前队员（现已高度不信任）"},{"id":"char_chihen","label":"自己的红色分身"},{"id":"char_moyu","label":"旧史关系（携走其半灵魂）"}],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女晕彩.jpg","imageUrls":["assets/char/魔法少女晕彩.jpg","assets/char/晕彩开华.jpg","assets/char/晕彩开华2.jpg","assets/char/睡衣晕彩.jpg","assets/char/晕彩.jpg"],"imageUrl":"assets/char/魔法少女晕彩.jpg"},{"id":"char_sutaoyao","realName":"苏桃夭","codename":"桃夭","height":"160cm","age":"16岁","level":"苞级","weapon":"映霞（桃花弓）","magic":"春景（当前失效）","domain":"未明示","icon":"🌸","images":["assets/char/魔法少女桃夭.jpg","assets/char/桃夭.jpg","assets/char/苏桃夭.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女桃夭.jpg","connections":[],"imageUrls":["assets/char/魔法少女桃夭.jpg","assets/char/桃夭.jpg","assets/char/苏桃夭.jpg"],"imageUrl":"assets/char/魔法少女桃夭.jpg"},{"id":"char_anruosu","realName":"安若素","codename":"铃兰","height":"155cm","age":"14岁","level":"芽级","weapon":"星盘","magic":"未觉醒（作者预定未来奇术为「归来」）","domain":"未明示","icon":"🔔","images":["assets/char/魔法少女铃兰.jpg","assets/char/铃兰.jpg","assets/char/安若素.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女铃兰.jpg","connections":[],"imageUrls":["assets/char/魔法少女铃兰.jpg","assets/char/铃兰.jpg","assets/char/安若素.jpg"],"imageUrl":"assets/char/魔法少女铃兰.jpg"},{"id":"char_qiyao","realName":"祁幺","codename":"魔王","height":"158cm","age":"比晕彩大几百岁（精确年龄未明）","level":"不能按现有体系精确套级（实力可压倒花级）","weapon":"未明示","magic":"未明示","domain":"未明示","icon":"👑","images":["assets/char/魔王.jpg","assets/char/魔王.jpg","assets/char/战斗形态魔王.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔王.jpg","connections":[],"imageUrls":["assets/char/魔王.jpg","assets/char/魔王.jpg","assets/char/战斗形态魔王.jpg"],"imageUrl":"assets/char/魔王.jpg"},{"id":"char_tina","realName":"缇娜·布兰度","codename":"曼珠沙华","height":"145cm","age":"实际存活数百年（精确数值未明）","level":"芽级（全功率输出可达苞级水准）","weapon":"王冠／权杖体系（血晶）","magic":"未明示","domain":"未明示","icon":"🦇","images":["assets/char/魔法少女曼珠沙华.jpg","assets/char/曼珠沙华.jpg","assets/char/缇娜.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女曼珠沙华.jpg","connections":[],"imageUrls":["assets/char/魔法少女曼珠沙华.jpg","assets/char/曼珠沙华.jpg","assets/char/缇娜.jpg"],"imageUrl":"assets/char/魔法少女曼珠沙华.jpg"},{"id":"char_jianqing","realName":"见晴","codename":"白水仙","height":"130cm","age":"出生不久（不能换算为人类年龄）","level":"芽级","weapon":"水镜（当前已破碎）","magic":"未觉醒（作者预定未来奇术为「水仙」）","domain":"未明示","icon":"🕊","images":["assets/char/魔法少女白水仙.jpg","assets/char/白水仙.jpg","assets/char/见晴1.jpg","assets/char/见晴2.jpg","assets/char/见晴3.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女白水仙.jpg","connections":[],"imageUrls":["assets/char/魔法少女白水仙.jpg","assets/char/白水仙.jpg","assets/char/见晴1.jpg","assets/char/见晴2.jpg","assets/char/见晴3.jpg"],"imageUrl":"assets/char/魔法少女白水仙.jpg"},{"id":"char_baibo","realName":"白泊","codename":"变彩","height":"150cm","age":"未明示","level":"花级","weapon":"万相（七彩可塑物质）","magic":"未明示","domain":"未明示","icon":"⚗️","images":["assets/char/魔法少女变彩.jpg","assets/char/白泊.jpg","assets/char/白泊.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女变彩.jpg","connections":[],"imageUrls":["assets/char/魔法少女变彩.jpg","assets/char/白泊.jpg","assets/char/白泊.jpg"],"imageUrl":"assets/char/魔法少女变彩.jpg"},{"id":"char_linwanzhi","realName":"林晚枝","codename":"紫竹梅","height":"未明示","age":"未明示","level":"果级（花使）","weapon":"未明示","magic":"未明示","domain":"未明示","icon":"❄️","images":["assets/char/魔法少女紫竹梅.jpg","assets/char/林晚枝.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女紫竹梅.jpg","connections":[],"imageUrls":["assets/char/魔法少女紫竹梅.jpg","assets/char/林晚枝.jpg"],"imageUrl":"assets/char/魔法少女紫竹梅.jpg"},{"id":"char_chun","realName":"椿","codename":"勿忘我","height":"127cm","age":"18岁","level":"果级","weapon":"花伞·六瓣星庭（六只召唤物）","magic":"将心比心","domain":"勿忘我时间","icon":"🎤","images":["assets/char/魔法少女勿忘我.jpg","assets/char/椿.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女勿忘我.jpg","connections":[],"imageUrls":["assets/char/魔法少女勿忘我.jpg","assets/char/椿.jpg"],"imageUrl":"assets/char/魔法少女勿忘我.jpg"},{"id":"char_xiangwankui","realName":"向晚葵","codename":"向日葵","height":"142cm","age":"19岁","level":"果级","weapon":"葵花锤","magic":"光能聚合","domain":"未明示","icon":"🌻","images":["assets/char/魔法少女向日葵.jpg","assets/char/向晚葵.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女向日葵.jpg","connections":[],"imageUrls":["assets/char/魔法少女向日葵.jpg","assets/char/向晚葵.jpg"],"imageUrl":"assets/char/魔法少女向日葵.jpg"},{"id":"char_linkongyue","realName":"林空月","codename":"银叶菊","height":"145cm","age":"20岁","level":"果级","weapon":"杖刀","magic":"空间掌控","domain":"万法皆空","icon":"🍂","images":["assets/char/魔法少女银叶菊.jpg","assets/char/林空月.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女银叶菊.jpg","connections":[],"imageUrls":["assets/char/魔法少女银叶菊.jpg","assets/char/林空月.jpg"],"imageUrl":"assets/char/魔法少女银叶菊.jpg"},{"id":"char_renran","realName":"荏苒","codename":"粉风铃","height":"155cm","age":"17岁","level":"苞级","weapon":"风铃环","magic":"听凭风引","domain":"无","icon":"🔔","images":["assets/char/魔法少女粉风铃.jpg","assets/char/荏苒.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女粉风铃.jpg","connections":[],"imageUrls":["assets/char/魔法少女粉风铃.jpg","assets/char/荏苒.jpg"],"imageUrl":"assets/char/魔法少女粉风铃.jpg"},{"id":"char_meili","realName":"梅莉","codename":"寒梅","height":"156cm","age":"15岁","level":"花级","weapon":"白金色洋伞","magic":"些许风霜","domain":"无","icon":"💠","images":["assets/char/魔法少女寒梅.jpg","assets/char/梅莉.jpg","assets/char/梅莉新.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女寒梅.jpg","connections":[],"imageUrls":["assets/char/魔法少女寒梅.jpg","assets/char/梅莉.jpg","assets/char/梅莉新.jpg"],"imageUrl":"assets/char/魔法少女寒梅.jpg"},{"id":"char_qianyuya","realName":"千榆娅","codename":"粉伽蓝","height":"142cm","age":"15岁","level":"花级","weapon":"缎带旋刃","magic":"圣诞星","domain":"无","icon":"🎀","images":["assets/char/粉伽蓝.jpg","assets/char/粉伽蓝开华.jpg","assets/char/千榆娅.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/粉伽蓝.jpg","connections":[],"imageUrls":["assets/char/粉伽蓝.jpg","assets/char/粉伽蓝开华.jpg","assets/char/千榆娅.jpg"],"imageUrl":"assets/char/粉伽蓝.jpg"},{"id":"char_luoyangjin","realName":"洛阳锦","codename":"牡丹","height":"未明示","age":"约十二岁","level":"未明示","weapon":"牡丹传承（可短暂抗衡魔王）","magic":"未明示","domain":"未明示","icon":"🌺","images":["assets/char/洛阳锦.jpg","assets/char/牡丹.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/洛阳锦.jpg","connections":[],"imageUrls":["assets/char/洛阳锦.jpg","assets/char/牡丹.jpg"],"imageUrl":"assets/char/洛阳锦.jpg"},{"id":"char_moyu","realName":"墨玉","codename":"冠世墨玉","height":"未明示","age":"未明示","level":"未明示","weapon":"闭合折扇","magic":"未明示","domain":"未明示","icon":"🖤","images":["assets/char/墨玉.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/墨玉.jpg","connections":[],"imageUrls":["assets/char/墨玉.jpg"],"imageUrl":"assets/char/墨玉.jpg"},{"id":"char_songjinyao","realName":"宋锦瑶","codename":"金鸢尾","height":"未明示","age":"未明示","level":"花级","weapon":"未明示","magic":"未明示","domain":"未明示","icon":"🌼","images":["assets/char/魔法少女金鸢尾.jpg","assets/char/宋锦瑶.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女金鸢尾.jpg","connections":[],"imageUrls":["assets/char/魔法少女金鸢尾.jpg","assets/char/宋锦瑶.jpg"],"imageUrl":"assets/char/魔法少女金鸢尾.jpg"},{"id":"char_lancheng","realName":"蓝澄","codename":"满天星","height":"未明示","age":"未明示","level":"未明示","weapon":"飞键","magic":"未明示","domain":"未明示","icon":"⭐","images":["assets/char/蓝澄.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/蓝澄.jpg","connections":[],"imageUrls":["assets/char/蓝澄.jpg"],"imageUrl":"assets/char/蓝澄.jpg"},{"id":"char_fangjiaojiao","realName":"方皎皎","codename":"栀子","height":"未明示","age":"未明示","level":"芽级","weapon":"乐谱书","magic":"未明示","domain":"未明示","icon":"🎼","images":["assets/char/魔法少女栀子.jpg","assets/char/方皎皎.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女栀子.jpg","connections":[],"imageUrls":["assets/char/魔法少女栀子.jpg","assets/char/方皎皎.jpg"],"imageUrl":"assets/char/魔法少女栀子.jpg"},{"id":"char_yunchi","realName":"云迟","codename":"月华","height":"160cm","age":"未明示","level":"果级","weapon":"蓝白月相抱枕","magic":"未明示","domain":"未明示","icon":"🌕","images":["assets/char/云迟.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/云迟.jpg","connections":[],"imageUrls":["assets/char/云迟.jpg"],"imageUrl":"assets/char/云迟.jpg"},{"id":"char_chihen","realName":"赤痕","codename":"赤痕","height":"未明示","age":"不适用（晕彩的分身）","level":"继承或劣化晕彩能力（独立等级未明）","weapon":"劣化版裁光（另用钢笔、太刀、驱动器）","magic":"析光（是否完整继承未明）","domain":"未明示","icon":"🔴","images":["assets/char/魔法少女赤痕.png"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/魔法少女赤痕.png","connections":[],"imageUrls":["assets/char/魔法少女赤痕.png"],"imageUrl":"assets/char/魔法少女赤痕.png"},{"id":"char_suxiaoshan","realName":"苏小扇","codename":"白蝴蝶兰","height":"当前124cm（生长定格后136cm）","age":"10岁","level":"未明示","weapon":"未明示","magic":"未明示","domain":"未明示","icon":"🦋","images":["assets/char/萝莉女仆.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/萝莉女仆.jpg","connections":[],"imageUrls":["assets/char/萝莉女仆.jpg"],"imageUrl":"assets/char/萝莉女仆.jpg"},{"id":"char_xunyicao","realName":"宋期兰","codename":"薰衣草","height":"未明示","age":"未明示","level":"未明示","weapon":"未明示","magic":"未明示","domain":"未明示","icon":"💜","images":["assets/char/薰衣草.jpg","assets/char/宋期兰.jpg"],"hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"assets/char/薰衣草.jpg","connections":[],"imageUrls":["assets/char/薰衣草.jpg","assets/char/宋期兰.jpg"],"imageUrl":"assets/char/薰衣草.jpg"},{"id":"char_luoluo","realName":"","codename":"珞珞","height":"未明示","age":"未明示","level":"不适用（侍从精灵）","weapon":"未明示","magic":"未明示","domain":"不适用","icon":"🐾","images":[],"connections":[],"_note":"不在「有图角色」范围内。为了让晕彩关系网里的节点能点进来，先建待补条目；属第二批次。","hidden":false,"extra":{},"tagline":"","summary":"","detail":"","overview":{},"image":"","imageUrls":[],"imageUrl":""}],"events":[],"links":[],"__static":true}</script>
+</head>
+<body>
+  <div id="mgc-announce" class="sr-only" aria-live="polite"></div>
+
+  <header class="bar">
+    <a class="bar-brand" href="#/">
+      <span class="bar-spark">✨</span>
+      <span class="bar-title" data-bind="title">魔法少女目录</span>
+    </a>
+    <nav class="bar-nav" data-bind="nav"></nav>
+    <div class="bar-right">
+      <span class="lock" data-bind="lock" hidden>只读</span>
+      <button type="button" class="btn btn-ghost" data-bind="auth">编辑</button>
+    </div>
+  </header>
+
+  <main id="view" class="view"></main>
+
+  <dialog id="edit-dialog" class="dialog">
+    <div class="dialog-form">
+      <h2 class="dialog-title" data-bind="edit-title">编辑</h2>
+      <div class="dialog-body" data-bind="edit-body"></div>
+      <p class="dialog-error" data-bind="edit-error" hidden></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" data-bind="edit-cancel">取消</button>
+        <button type="button" class="btn btn-primary" data-bind="edit-save">保存</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="auth-dialog" class="dialog">
+    <div class="dialog-form">
+      <h2 class="dialog-title">输入编辑秘钥</h2>
+      <div class="dialog-body">
+        <p class="muted">
+          没有秘钥也能看完整内容。输入秘钥后即可修改世界观、角色与大事件。
+        </p>
+        <label class="field">
+          <span>编辑秘钥</span>
+          <input type="password" data-bind="auth-key" autocomplete="current-password" placeholder="XXXX-XXXX-XXXX-XXXX">
+        </label>
+      </div>
+      <p class="dialog-error" data-bind="auth-error" hidden></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" data-bind="auth-cancel">取消</button>
+        <button type="button" class="btn btn-primary" data-bind="auth-submit">解锁</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="assets/page.js"></script>
+</body>
+</html>

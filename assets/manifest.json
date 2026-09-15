@@ -1,0 +1,228 @@
+{
+  "generatedAt": "2026-09-15T03:17:32.387Z",
+  "maxSide": 1600,
+  "quality": 85,
+  "cover": "assets/cover/封面.jpg",
+  "items": [
+    {
+      "out": "assets/cover/封面.jpg",
+      "bytes": 146217
+    },
+    {
+      "out": "assets/char/魔法少女晕彩.jpg",
+      "bytes": 186741
+    },
+    {
+      "out": "assets/char/晕彩开华.jpg",
+      "bytes": 184324
+    },
+    {
+      "out": "assets/char/晕彩开华2.jpg",
+      "bytes": 185139
+    },
+    {
+      "out": "assets/char/睡衣晕彩.jpg",
+      "bytes": 82501
+    },
+    {
+      "out": "assets/char/晕彩.jpg",
+      "bytes": 174293
+    },
+    {
+      "out": "assets/char/魔法少女桃夭.jpg",
+      "bytes": 90154
+    },
+    {
+      "out": "assets/char/桃夭.jpg",
+      "bytes": 154779
+    },
+    {
+      "out": "assets/char/苏桃夭.jpg",
+      "bytes": 73337
+    },
+    {
+      "out": "assets/char/魔法少女铃兰.jpg",
+      "bytes": 98702
+    },
+    {
+      "out": "assets/char/铃兰.jpg",
+      "bytes": 217202
+    },
+    {
+      "out": "assets/char/安若素.jpg",
+      "bytes": 95498
+    },
+    {
+      "out": "assets/char/魔王.jpg",
+      "bytes": 199041
+    },
+    {
+      "out": "assets/char/魔王.jpg",
+      "bytes": 199041
+    },
+    {
+      "out": "assets/char/战斗形态魔王.jpg",
+      "bytes": 111894
+    },
+    {
+      "out": "assets/char/魔法少女曼珠沙华.jpg",
+      "bytes": 102856
+    },
+    {
+      "out": "assets/char/曼珠沙华.jpg",
+      "bytes": 184631
+    },
+    {
+      "out": "assets/char/缇娜.jpg",
+      "bytes": 118655
+    },
+    {
+      "out": "assets/char/魔法少女白水仙.jpg",
+      "bytes": 132728
+    },
+    {
+      "out": "assets/char/白水仙.jpg",
+      "bytes": 209029
+    },
+    {
+      "out": "assets/char/见晴1.jpg",
+      "bytes": 84982
+    },
+    {
+      "out": "assets/char/见晴2.jpg",
+      "bytes": 77990
+    },
+    {
+      "out": "assets/char/见晴3.jpg",
+      "bytes": 84740
+    },
+    {
+      "out": "assets/char/魔法少女变彩.jpg",
+      "bytes": 101370
+    },
+    {
+      "out": "assets/char/白泊.jpg",
+      "bytes": 84000
+    },
+    {
+      "out": "assets/char/白泊.jpg",
+      "bytes": 84000
+    },
+    {
+      "out": "assets/char/魔法少女紫竹梅.jpg",
+      "bytes": 197595
+    },
+    {
+      "out": "assets/char/林晚枝.jpg",
+      "bytes": 92841
+    },
+    {
+      "out": "assets/char/魔法少女勿忘我.jpg",
+      "bytes": 142945
+    },
+    {
+      "out": "assets/char/椿.jpg",
+      "bytes": 141309
+    },
+    {
+      "out": "assets/char/魔法少女向日葵.jpg",
+      "bytes": 166689
+    },
+    {
+      "out": "assets/char/向晚葵.jpg",
+      "bytes": 160234
+    },
+    {
+      "out": "assets/char/魔法少女银叶菊.jpg",
+      "bytes": 160978
+    },
+    {
+      "out": "assets/char/林空月.jpg",
+      "bytes": 92400
+    },
+    {
+      "out": "assets/char/魔法少女粉风铃.jpg",
+      "bytes": 40685
+    },
+    {
+      "out": "assets/char/荏苒.jpg",
+      "bytes": 105492
+    },
+    {
+      "out": "assets/char/魔法少女寒梅.jpg",
+      "bytes": 212710
+    },
+    {
+      "out": "assets/char/梅莉.jpg",
+      "bytes": 123353
+    },
+    {
+      "out": "assets/char/梅莉新.jpg",
+      "bytes": 124478
+    },
+    {
+      "out": "assets/char/粉伽蓝.jpg",
+      "bytes": 111234
+    },
+    {
+      "out": "assets/char/粉伽蓝开华.jpg",
+      "bytes": 139170
+    },
+    {
+      "out": "assets/char/千榆娅.jpg",
+      "bytes": 99843
+    },
+    {
+      "out": "assets/char/洛阳锦.jpg",
+      "bytes": 122657
+    },
+    {
+      "out": "assets/char/牡丹.jpg",
+      "bytes": 117571
+    },
+    {
+      "out": "assets/char/墨玉.jpg",
+      "bytes": 90329
+    },
+    {
+      "out": "assets/char/魔法少女金鸢尾.jpg",
+      "bytes": 131663
+    },
+    {
+      "out": "assets/char/宋锦瑶.jpg",
+      "bytes": 76711
+    },
+    {
+      "out": "assets/char/蓝澄.jpg",
+      "bytes": 84926
+    },
+    {
+      "out": "assets/char/魔法少女栀子.jpg",
+      "bytes": 96677
+    },
+    {
+      "out": "assets/char/方皎皎.jpg",
+      "bytes": 73222
+    },
+    {
+      "out": "assets/char/云迟.jpg",
+      "bytes": 64140
+    },
+    {
+      "out": "assets/char/魔法少女赤痕.png",
+      "bytes": 1030600
+    },
+    {
+      "out": "assets/char/萝莉女仆.jpg",
+      "bytes": 151561
+    },
+    {
+      "out": "assets/char/薰衣草.jpg",
+      "bytes": 138507
+    },
+    {
+      "out": "assets/char/宋期兰.jpg",
+      "bytes": 147541
+    }
+  ]
+}
