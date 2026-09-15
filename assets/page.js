@@ -30,7 +30,7 @@
       { k: 'realName', label: '本名', type: 'text', ph: '例如：林晗' },
       { k: 'codename', label: '魔法少女代号', type: 'text', ph: '例如：晕彩' },
       { k: 'aliases', label: '其它称呼', type: 'text', ph: '用顿号或逗号分隔，如：紫罗兰、小彩' },
-      { k: 'icon', label: '图标（表情包）', type: 'text', ph: '一个 emoji，如 🌙' },
+      { k: 'icon', label: '图标（表情包）', type: 'icon', ph: '一个 emoji，如 🌙' },
       { k: 'tagline', label: '一句话', type: 'text' },
       {
         k: 'images',
@@ -46,25 +46,42 @@
       { k: 'magic', label: '奇术（只写名称）', type: 'text', ph: '如：析光' },
       { k: 'domain', label: '领域（只写名称）', type: 'text', ph: '如：未明示 / 无' },
       { k: 'summary', label: '简介', type: 'textarea' },
-      { k: 'detail', label: '描述正文', type: 'textarea', note: '详情页最下方「描述」区的正文，留空则显示占位' },
+      { k: 'detail', label: '角色描述', type: 'textarea', note: '描述区最上面那段自由正文，留空则不显示' },
+      {
+        k: 'desc.weapons',
+        label: '武装 · 具体描述',
+        type: 'lines',
+        rows: '4',
+        note: '一行一件武装。最后一行可以写总注（例如「三件彼此独立，不可合并」）',
+      },
+      { k: 'desc.weaponsNote', label: '武装 · 总注（可选）', type: 'textarea', rows: '2' },
+      { k: 'desc.magic', label: '奇术 · 具体描述', type: 'textarea' },
+      { k: 'desc.domain', label: '领域 · 具体描述', type: 'textarea' },
+      { k: 'desc.note', label: '补充（其他能力／开华／边界）', type: 'textarea', rows: '4' },
     ],
     world: [
       { k: 'title', label: '条目标题', type: 'text' },
       { k: 'category', label: '分类', type: 'text', ph: '如：地理 / 力量体系' },
-      { k: 'icon', label: '图标（表情包）', type: 'text', ph: '一个 emoji' },
+      { k: 'icon', label: '图标（表情包）', type: 'icon', ph: '一个 emoji' },
       { k: 'body', label: '内容', type: 'textarea' },
     ],
     events: [
       { k: 'title', label: '事件名称', type: 'text' },
       { k: 'date', label: '时间', type: 'text', ph: '如：第一卷 第三章' },
-      { k: 'icon', label: '图标（表情包）', type: 'text', ph: '一个 emoji' },
+      { k: 'icon', label: '图标（表情包）', type: 'icon', ph: '一个 emoji' },
       { k: 'summary', label: '简述', type: 'textarea' },
       { k: 'detail', label: '详情', type: 'textarea' },
     ],
     links: [
       { k: 'title', label: '名称', type: 'text', ph: '如：安叶的 bilibili 主页' },
       { k: 'url', label: '链接', type: 'text', ph: 'https://…' },
-      { k: 'icon', label: '图标（表情包）', type: 'text', ph: '一个 emoji' },
+      { k: 'icon', label: '图标（表情包）', type: 'icon', ph: '一个 emoji' },
+      {
+        k: 'image',
+        label: '配图（可选）',
+        type: 'text',
+        note: '一张图片的文件名或路径，会显示在卡片上方。番茄小说分享图就用这个位置。',
+      },
       { k: 'badge', label: '角标', type: 'text', ph: '如：必看 / 最新章节' },
       { k: 'desc', label: '说明', type: 'textarea' },
     ],
@@ -373,11 +390,14 @@
         (state.route.name === 'board' && state.route.board.key === b.key) ||
         (state.route.name === 'character' && b.key === 'characters')
       els.nav.appendChild(
-        el('a', {
-          href: boardHref(b),
-          text: b.icon + ' ' + b.name,
-          'aria-current': current ? 'page' : null,
-        }),
+        el(
+          'a',
+          {
+            href: boardHref(b),
+            'aria-current': current ? 'page' : null,
+          },
+          [iconNode(b.icon), el('span', { text: ' ' + b.name })],
+        ),
       )
     })
   }
@@ -468,8 +488,8 @@
       })
       tiles.appendChild(
         el('a', { class: 'tile', href: boardHref(b) }, [
-          // 图标位：作者之后填表情包
-          el('div', { class: 'tile-icon', text: b.icon || '' }),
+          // 图标位：作者之后填表情包（emoji 或图片都行）
+          el('div', { class: 'tile-icon' }, [iconNode(b.icon)]),
           el('div', { class: 'tile-name', text: b.name }),
           el('div', { class: 'tile-desc', text: b.desc }),
           visible.length ? el('div', { class: 'tile-count', text: String(visible.length) }) : null,
@@ -497,7 +517,7 @@
 
     var wrap = el('div', { class: 'wrap' })
     var head = el('div', { class: 'board-head' }, [
-      el('h1', {}, [el('span', { text: board.icon || '' }), el('span', { text: board.name })]),
+      el('h1', {}, [el('span', { class: 'board-icon' }, [iconNode(board.icon)]), el('span', { text: board.name })]),
       visible.length ? el('span', { class: 'count', text: visible.length + ' 条' }) : null,
       el('span', { class: 'grow' }),
     ])
@@ -536,7 +556,7 @@
           ? '还没有内容。点右上角「＋ 新增」开始录入。'
           : '这个板块还没有内容。'
     return el('div', { class: 'empty' }, [
-      el('div', { class: 'big', text: board.icon || '📦' }),
+      el('div', { class: 'big' }, [iconNode(board.icon, '📦')]),
       el('div', { text: board.name + '：' + hint }),
       el('div', { class: 'hint', text: '内容由作者维护' }),
     ])
@@ -556,6 +576,40 @@
     if (!ch) return ''
     if (ch.realName && ch.codename) return ch.realName + '（' + ch.codename + '）'
     return ch.realName || ch.codename || '（未命名）'
+  }
+
+  // ---- 图标位（表情包）----------------------------------------------------
+
+  /**
+   * 图标位是**一个字段两种填法**：填 emoji 就画 emoji，填图片路径就画图片。
+   *
+   * 这里只认服务端算好的 `iconUrl`（静态导出时是构建期算的），客户端不自己
+   * 判断「这串字符是不是图片」—— 判断放在一处，才不会出现「服务端当图片、
+   * 客户端当文字」这种各说各话的情况。
+   *
+   * @param {object|string} src 带 icon / iconUrl 的条目，或直接给一个 emoji 字符串
+   * @param {string} [fallback] 没填 icon 时用的字
+   */
+  function iconNode(src, fallback) {
+    var entry = typeof src === 'string' ? { icon: src } : src || {}
+    var text = entry.icon || fallback || ''
+    var url = entry.iconUrl || ''
+
+    if (!url) return el('span', { class: 'icon-text', text: text })
+
+    var img = el('img', { class: 'icon-img', src: url, alt: text || '图标', loading: 'lazy' })
+    img.addEventListener('error', function () {
+      // 图读不到就退回一个看得见的记号，并把路径与原因挂在 title 上。
+      // 退回原来的文字是错的：填的是路径，画一行 `人设图\魔王.png` 只会让人
+      // 以为「这个位置不支持插图」—— 那正是这次要修的那个 bug。
+      img.hidden = true
+      console.warn('[mgc] 图标图片读不到：' + (entry.icon || ''))
+      var mark = el('span', { class: 'icon-text icon-broken', text: '⚠', title: '图标读不到：' + (entry.icon || '') })
+      // 用 appendChild 而不是 insertBefore(img.nextSibling)：图片已经 hidden 了，
+      // 位置没有区别，而少一个 DOM API 依赖。
+      if (img.parentNode) img.parentNode.appendChild(mark)
+    })
+    return img
   }
 
   function announceImgError(box, url, shown) {
@@ -580,7 +634,7 @@
     if (!url) {
       box.appendChild(
         el('div', { class: 'placeholder' }, [
-          el('div', { class: 'glyph', text: ch.icon || '✨' }),
+          el('div', { class: 'glyph' }, [iconNode(ch, '✨')]),
           el('div', { text: state.unlocked ? '还没有卡图 —— 点「编辑」填图片路径' : '暂无卡图' }),
         ]),
       )
@@ -588,7 +642,7 @@
     }
 
     // 占位层先留着：图没加载出来时它就是背景，图片盖在它上面
-    box.appendChild(el('div', { class: 'placeholder' }, [el('div', { class: 'glyph', text: ch.icon || '✨' })]))
+    box.appendChild(el('div', { class: 'placeholder' }, [el('div', { class: 'glyph' }, [iconNode(ch, '✨')])]))
 
     var img = el('img', { src: url, alt: displayName(ch), loading: 'lazy' })
     img.addEventListener('error', function () {
@@ -611,7 +665,7 @@
     var main = el('div', { class: 'gallery-main' })
     var mainImg = null
     var placeholder = el('div', { class: 'placeholder' }, [
-      el('div', { class: 'glyph', text: ch.icon || '✨' }),
+      el('div', { class: 'glyph' }, [iconNode(ch, '✨')]),
       el('div', { text: urls.length ? '' : state.unlocked ? '还没有角色图 —— 点「编辑」填图片路径' : '暂无角色图' }),
     ])
     main.appendChild(placeholder)
@@ -672,13 +726,13 @@
     var box = el('div', { class: 'rel-avatar' })
     var url = ch && (ch.imageUrl || (ch.imageUrls || [])[0])
     if (!url) {
-      box.appendChild(el('div', { class: 'glyph', text: (ch && ch.icon) || (ch ? '✨' : '❔') }))
+      box.appendChild(el('div', { class: 'glyph' }, [iconNode(ch, ch ? '✨' : '❔')]))
       return box
     }
     var img = el('img', { src: url, alt: displayName(ch), loading: 'lazy' })
     img.addEventListener('error', function () {
       img.hidden = true
-      box.appendChild(el('div', { class: 'glyph', text: (ch && ch.icon) || '✨' }))
+      box.appendChild(el('div', { class: 'glyph' }, [iconNode(ch, '✨')]))
     })
     box.appendChild(img)
     return box
@@ -795,7 +849,29 @@
     return row
   }
 
-  // ---- 描述区（占位，等逐项填充） -----------------------------------------
+  // ---- 描述区 -------------------------------------------------------------
+  //
+  // 数据来自 character.desc（结构化）：
+  //   { weapons: [每件武装一条], weaponsNote, magic, domain, note }
+  // 拆成结构化字段而不是一坨长文本，是为了让作者能逐条改。
+  // 缺内容的项显示「待填充」占位，有内容就显示正文 —— 不静默留白。
+
+  /** 有内容就渲染正文，没有就退回占位（并标注待填充）。 */
+  function descBlock(title, body, placeholderText) {
+    var has = typeof body === 'string' ? body.trim() !== '' : Array.isArray(body) && body.length > 0
+    if (!has) return placeholderBlock(title, placeholderText)
+    var kids = [el('h3', {}, [el('span', { text: title }), el('span', { class: 'ph-tag done', text: '已录入' })])]
+    if (Array.isArray(body)) {
+      var ul = el('ul', { class: 'desc-list' })
+      body.forEach(function (line) {
+        ul.appendChild(el('li', { text: line }))
+      })
+      kids.push(ul)
+    } else {
+      kids.push(el('p', { text: body }))
+    }
+    return el('div', { class: 'placeholder-block filled' }, kids)
+  }
 
   function placeholderBlock(title, desc) {
     return el('div', { class: 'placeholder-block' }, [
@@ -805,18 +881,41 @@
   }
 
   function renderDescriptions(ch) {
+    var d = ch.desc || {}
     var box = el('div', { class: 'detail-body' })
-    box.appendChild(
-      el('section', { class: 'detail-section' }, [
-        el('h2', { text: '描述' }),
-        ch.detail
-          ? el('div', { class: 'detail-prose', text: ch.detail })
-          : placeholderBlock('角色描述', '这个人物的详细记述还没有填入。'),
-        placeholderBlock('武装 · 具体描述', '每一件武装的形态、能力与限制。'),
-        placeholderBlock('奇术 · 具体描述', '奇术的本质、表现方式与代价。'),
-        placeholderBlock('领域 · 具体描述', '领域的名称、效果与使用条件。'),
-      ]),
-    )
+
+    var sec = el('section', { class: 'detail-section' }, [el('h2', { text: '描述' })])
+
+    // 角色描述（自由正文）：作者写了才显示。没写就不占位 ——
+    // 下面三项已经把设定讲清楚了，再挂一个空占位只会显得内容没写完。
+    if (ch.detail) {
+      sec.appendChild(
+        el('div', { class: 'placeholder-block filled' }, [
+          el('h3', {}, [el('span', { text: '角色描述' }), el('span', { class: 'ph-tag done', text: '已录入' })]),
+          el('p', { text: ch.detail }),
+        ]),
+      )
+    }
+
+    // 武装：逐件列出，末尾可带一条总注（三件独立、消耗性资源之类）
+    var weaponsBody = (d.weapons || []).slice()
+    if (d.weaponsNote) weaponsBody.push(d.weaponsNote)
+    sec.appendChild(descBlock('武装', weaponsBody, '每一件武装的形态、能力与限制。'))
+
+    sec.appendChild(descBlock('奇术', d.magic || '', '奇术的本质、表现方式与代价。'))
+    sec.appendChild(descBlock('领域', d.domain || '', '领域的名称、效果与使用条件。'))
+
+    // 补充：其他能力、开华状态、边界等，有才显示
+    if (d.note) {
+      sec.appendChild(
+        el('div', { class: 'placeholder-block filled' }, [
+          el('h3', {}, [el('span', { text: '补充' }), el('span', { class: 'ph-tag done', text: '已录入' })]),
+          el('p', { text: d.note }),
+        ]),
+      )
+    }
+
+    box.appendChild(sec)
     return box
   }
 
@@ -843,7 +942,7 @@
       )
 
       // 图标位（表情包）
-      if (ch.icon) card.appendChild(el('div', { class: 'char-icon', text: ch.icon }))
+      if (ch.icon) card.appendChild(el('div', { class: 'char-icon' }, [iconNode(ch)]))
       if (ch.hidden) card.appendChild(el('div', { class: 'char-badge', text: '已隐藏' }))
 
       if (state.unlocked && !READONLY) {
@@ -882,8 +981,8 @@
     items.forEach(function (en) {
       var row = el('article', { class: 'entry' + (en.hidden ? ' is-hidden' : '') })
 
-      // 条目边上的图标位（表情包后填）
-      row.appendChild(el('div', { class: 'entry-icon' + (en.icon ? '' : ' empty'), text: en.icon || '＋' }))
+      // 条目边上的图标位（表情包，emoji 或图片）
+      row.appendChild(el('div', { class: 'entry-icon' + (en.icon ? '' : ' empty') }, [iconNode(en, '＋')]))
 
       var main = el('div', { class: 'entry-main' })
       main.appendChild(
@@ -933,19 +1032,41 @@
     var grid = el('div', { class: 'link-grid' })
     items.forEach(function (ln) {
       var href = safeHref(ln.url)
-      var kids = [
-        el('div', { class: 'entry-icon' + (ln.icon ? '' : ' empty'), text: ln.icon || '🔗' }),
-        el('div', { class: 'link-main' }, [
-          el('div', { class: 'link-title' }, [
-            el('span', { text: ln.title || '（未命名链接）' }),
-            ln.badge ? el('span', { class: 'link-badge', text: ln.badge }) : null,
-          ]),
-          el('div', { class: 'link-url', text: ln.url || '没有填链接' }),
-          ln.desc ? el('div', { class: 'link-desc', text: ln.desc }) : null,
-        ]),
-      ]
+      var kids = []
 
-      var cardClass = 'link-card' + (ln.hidden ? ' is-hidden' : '')
+      // 配图（可选）：番茄小说分享卡这种整张海报，放在文字上方而不是挤进图标位。
+      if (ln.imageUrl) {
+        var fig = el('div', { class: 'link-figure' })
+        var figImg = el('img', { src: ln.imageUrl, alt: ln.title || '配图', loading: 'lazy' })
+        figImg.addEventListener('error', function () {
+          figImg.hidden = true
+          announceImgError(fig, ln.imageUrl, ln.image || '')
+        })
+        fig.appendChild(figImg)
+        kids.push(fig)
+      }
+
+      kids.push(
+        el('div', { class: 'link-body' }, [
+          el('div', { class: 'entry-icon' + (ln.icon ? '' : ' empty') }, [iconNode(ln, '🔗')]),
+          el('div', { class: 'link-main' }, [
+            el('div', { class: 'link-title' }, [
+              el('span', { text: ln.title || '（未命名链接）' }),
+              ln.badge ? el('span', { class: 'link-badge', text: ln.badge }) : null,
+            ]),
+            // 「没有填链接」是给作者看的提醒，不是给读者的内容。
+            // 有些卡片（分享图）本来就没有网址，读者不该看到这行占位。
+            ln.url
+              ? el('div', { class: 'link-url', text: ln.url })
+              : state.unlocked && !READONLY
+                ? el('div', { class: 'link-url', text: '没有填链接' })
+                : null,
+            ln.desc ? el('div', { class: 'link-desc', text: ln.desc }) : null,
+          ]),
+        ]),
+      )
+
+      var cardClass = 'link-card' + (ln.imageUrl ? ' has-figure' : '') + (ln.hidden ? ' is-hidden' : '')
       var card = href
         ? el('a', { class: cardClass, href: href, target: '_blank', rel: 'noopener noreferrer' }, kids)
         : el('div', { class: cardClass }, kids)
@@ -1043,7 +1164,7 @@
 
     var names = el('div', { class: 'detail-names' }, [
       el('h1', {}, [
-        ch.icon ? el('span', { text: ch.icon + ' ' }) : null,
+        ch.icon ? el('span', { class: 'detail-icon' }, [iconNode(ch)]) : null,
         el('span', { text: ch.realName || ch.codename || '（未命名）' }),
       ]),
       ch.codename
@@ -1055,6 +1176,12 @@
     if (ch.tagline) names.appendChild(el('p', { class: 'detail-tagline', text: ch.tagline }))
 
     names.appendChild(infoRows(ch))
+
+    // 「简介」栏暂不显示：详情页的信息块统一只保留八项 + 别名。
+    // 数据里的 summary 字段仍然保留（导出、编辑表单都还在），只是不渲染 ——
+    // 以后要放回来的话，在关系网之前插一段就行。
+    // 注意：如果哪天放回来，务必确认里面没有「第 N 章」这类章节坐标、
+    // 也没有「不得写成…」这类给自己看的创作提醒（verify-seed 有闸门）。
 
     // 预留字段：作者往数据里加的 extra 字段会自动列在这里，不需要改代码
     var extras = Object.keys(ch.extra || {})
@@ -1094,10 +1221,23 @@
     return b ? b.name : kind
   }
 
+  // 字段键可以是「desc.weapons」这种点号路径（对应嵌套对象）。
+  // 表单里用一个扁平字符串当键，提交时再展开回嵌套结构。
+  function getPath(obj, path) {
+    var parts = String(path).split('.')
+    var cur = obj
+    for (var i = 0; i < parts.length; i++) {
+      if (cur === null || cur === undefined) return undefined
+      cur = cur[parts[i]]
+    }
+    return cur
+  }
+
   function draftFrom(kind, entry) {
     var draft = {}
     FIELDS[kind].forEach(function (f) {
-      var v = entry ? entry[f.k] : ''
+      // 嵌套字段从 entry.desc.xxx 取；普通字段直接取
+      var v = entry ? (f.k.indexOf('.') >= 0 ? getPath(entry, f.k) : entry[f.k]) : ''
       // 多值字段在表单里是「一行一个」的文本，这里来回转换
       if (f.type === 'lines') draft[f.k] = Array.isArray(v) ? v.join('\n') : v || ''
       else draft[f.k] = v || ''
@@ -1106,25 +1246,181 @@
     return draft
   }
 
-  /** 提交前把「一行一个」的字段换回数组，并去掉空行。 */
+  /** 提交前把「一行一个」的字段换回数组，并把点号键展开成嵌套对象。 */
   function draftToPatch(kind, draft) {
     var patch = {}
     Object.keys(draft).forEach(function (k) {
+      if (k.indexOf('.') >= 0) return // 嵌套键稍后单独处理
       patch[k] = draft[k]
     })
     FIELDS[kind].forEach(function (f) {
-      if (f.type !== 'lines') return
-      patch[f.k] = String(draft[f.k] || '')
-        .split('\n')
-        .map(function (s) {
-          return s.trim()
-        })
-        .filter(Boolean)
+      var value
+      if (f.type === 'lines') {
+        value = String(draft[f.k] || '')
+          .split('\n')
+          .map(function (s) {
+            return s.trim()
+          })
+          .filter(Boolean)
+      } else {
+        value = draft[f.k]
+      }
+      if (f.k.indexOf('.') < 0) {
+        patch[f.k] = value
+        return
+      }
+      // desc.weapons -> patch.desc.weapons
+      var parts = f.k.split('.')
+      var cur = patch
+      for (var i = 0; i < parts.length - 1; i++) {
+        if (typeof cur[parts[i]] !== 'object' || cur[parts[i]] === null) cur[parts[i]] = {}
+        cur = cur[parts[i]]
+      }
+      cur[parts[parts.length - 1]] = value
     })
     return patch
   }
 
   var editorCtx = { kind: null, id: null, draft: null }
+
+  // ---- 图标位的图片支持 ---------------------------------------------------
+
+  /**
+   * 支持的图片扩展名。**默认值只是兜底**：真正的一份在服务端
+   * （`/api/images.json` 的 exts），打开选择器时会覆盖这里。前端不复刻规则，
+   * 否则以后服务端加一种图片类型，这里就成了「明明支持却判成文字」的坑。
+   */
+  var IMG_EXTS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif', '.bmp', '.svg']
+
+  /**
+   * 用当前正在编辑的值（还没保存）拼一个预览 URL。
+   * 只对「看起来是图片」的值给 URL；emoji 等文字返回 ''，由 iconNode 画文字。
+   */
+  function draftIconUrl(src) {
+    var raw = String(src == null ? '' : src).trim()
+    if (!raw) return ''
+    var lower = raw.toLowerCase()
+    var isImg = IMG_EXTS.some(function (e) {
+      return lower.slice(-e.length) === e
+    })
+    // 静态站没有转发接口，拼出来的 URL 必然 404 —— 与其画个碎图标，不如画文字
+    if (!isImg || READONLY || !API) return ''
+    return API + '/image?src=' + encodeURIComponent(raw)
+  }
+
+  var iconPicker = { images: null, dirs: [], error: '', onPick: null, filter: '' }
+
+  /** 图标位字段：文本框 + 实时预览 + 「从图片里选」。 */
+  function iconField(f, draft) {
+    var input = el('input', { type: 'text', placeholder: f.ph || '' })
+    input.value = draft[f.k] || ''
+
+    var preview = el('div', { class: 'icon-preview', title: '预览' })
+
+    function refresh() {
+      var value = draft[f.k] || ''
+      clear(preview)
+      preview.appendChild(iconNode({ icon: value, iconUrl: draftIconUrl(value) }, '＋'))
+      preview.setAttribute(
+        'data-kind',
+        !value ? '空' : draftIconUrl(value) ? '图片' : '文字',
+      )
+    }
+
+    input.addEventListener('input', function () {
+      draft[f.k] = input.value
+      refresh()
+    })
+    refresh()
+
+    var row = el('div', { class: 'icon-row' }, [
+      input,
+      preview,
+      el('button', {
+        class: 'btn btn-ghost btn-sm',
+        type: 'button',
+        text: '从图片里选…',
+        onclick: function () {
+          openIconPicker(function (picked) {
+            draft[f.k] = picked
+            input.value = picked
+            refresh()
+          })
+        },
+      }),
+    ])
+
+    var label = el('label', { class: 'field' }, [el('span', { text: f.label }), row])
+    label.appendChild(
+      el('span', {
+        class: 'note',
+        text: f.note || '填 emoji 就显示 emoji；填图片名（如 晕彩.png）或绝对路径就显示图片。',
+      }),
+    )
+    return label
+  }
+
+  function openIconPicker(onPick) {
+    iconPicker.onPick = onPick
+    iconPicker.filter = ''
+    els.iconFilter.value = ''
+    els.iconError.hidden = true
+    els.iconError.textContent = ''
+    els.iconDialog.showModal()
+    renderIconList()
+
+    // 清单只取一次；作者换了图片目录就刷新页面。
+    if (iconPicker.images) return
+    clear(els.iconList).appendChild(el('div', { class: 'muted', text: '读取图片列表…' }))
+    request(API + '/images.json')
+      .then(function (res) {
+        iconPicker.images = res.images || []
+        iconPicker.dirs = res.dirs || []
+        if (res.exts && res.exts.length) IMG_EXTS = res.exts
+        iconPicker.error = iconPicker.images.length ? '' : res.hint || '受控目录里没有找到图片。'
+        renderIconList()
+      })
+      .catch(function (err) {
+        iconPicker.error = (err && err.message) || String(err)
+        renderIconList()
+      })
+  }
+
+  function renderIconList() {
+    if (!els.iconList) return
+    var box = clear(els.iconList)
+
+    if (iconPicker.error) {
+      box.appendChild(el('div', { class: 'empty', text: '读不到图片清单：' + iconPicker.error }))
+      return
+    }
+    if (!iconPicker.images) return
+
+    var q = iconPicker.filter.trim().toLowerCase()
+    var list = iconPicker.images.filter(function (im) {
+      return !q || im.rel.toLowerCase().indexOf(q) >= 0
+    })
+    if (!list.length) {
+      box.appendChild(
+        el('div', { class: 'muted', text: q ? '没有匹配「' + iconPicker.filter + '」的图片' : '没有图片' }),
+      )
+      return
+    }
+
+    list.forEach(function (im) {
+      var url = API + '/image?src=' + encodeURIComponent(im.rel)
+      var btn = el('button', { class: 'icon-pick', type: 'button', title: im.rel }, [
+        el('img', { src: url, alt: im.name, loading: 'lazy' }),
+        el('span', { class: 'icon-pick-name', text: im.name }),
+        el('span', { class: 'icon-pick-dir', text: im.dir }),
+      ])
+      btn.addEventListener('click', function () {
+        if (iconPicker.onPick) iconPicker.onPick(im.rel)
+        els.iconDialog.close()
+      })
+      box.appendChild(btn)
+    })
+  }
 
   function openEditor(kind, id) {
     if (!state.unlocked) {
@@ -1154,6 +1450,10 @@
     var draft = editorCtx.draft
 
     FIELDS[editorCtx.kind].forEach(function (f) {
+      if (f.type === 'icon') {
+        body.appendChild(iconField(f, draft))
+        return
+      }
       var isMulti = f.type === 'textarea' || f.type === 'lines'
       var input = isMulti
         ? el('textarea', { rows: f.rows || (f.k === 'detail' ? '7' : '3') })
@@ -1313,11 +1613,13 @@
     els.announce = document.getElementById('mgc-announce')
     els.editDialog = document.getElementById('edit-dialog')
     els.authDialog = document.getElementById('auth-dialog')
+    els.iconDialog = document.getElementById('icon-dialog')
 
     ;[
       'title', 'nav', 'lock', 'auth',
       'edit-title', 'edit-body', 'edit-error', 'edit-cancel', 'edit-save',
       'auth-key', 'auth-error', 'auth-cancel', 'auth-submit',
+      'icon-filter', 'icon-list', 'icon-error', 'icon-cancel', 'icon-clear',
     ].forEach(function (name) {
       var node = document.querySelector('[data-bind="' + name + '"]')
       if (!node) console.warn('[mgc] 页面里找不到 data-bind="' + name + '"')
@@ -1355,6 +1657,24 @@
       })
     }
     if (els.editSave) els.editSave.addEventListener('click', doSaveEditor)
+
+    if (els.iconCancel) {
+      els.iconCancel.addEventListener('click', function () {
+        els.iconDialog.close()
+      })
+    }
+    if (els.iconClear) {
+      els.iconClear.addEventListener('click', function () {
+        if (iconPicker.onPick) iconPicker.onPick('')
+        els.iconDialog.close()
+      })
+    }
+    if (els.iconFilter) {
+      els.iconFilter.addEventListener('input', function () {
+        iconPicker.filter = els.iconFilter.value || ''
+        renderIconList()
+      })
+    }
 
     window.addEventListener('hashchange', function () {
       state.route = parseRoute()

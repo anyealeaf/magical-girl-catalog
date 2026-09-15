@@ -574,6 +574,10 @@ a { color: var(--accent); }
   color: var(--accent);
 }
 
+/* 「简介」栏已暂时移除（详情页只保留八项信息 + 别名）。
+   .detail-summary 相关样式一并删掉，避免留下没人用的死样式；
+   要恢复时连着 page.js 里那段注释一起加回来。 */
+
 /* ---- 关系网 ------------------------------------------------------------- */
 
 .rel {
@@ -670,7 +674,7 @@ a.rel-node:hover {
 .detail-prose { white-space: pre-wrap; word-break: break-word; }
 .detail-prose.empty-prose { color: var(--muted); font-style: italic; }
 
-/* 描述区的占位：等作者之后逐项填写 */
+/* 描述区：占位块与已录入块 */
 .placeholder-block {
   border: 1px dashed var(--border);
   border-radius: var(--radius-sm);
@@ -695,6 +699,32 @@ a.rel-node:hover {
   color: var(--accent);
 }
 .placeholder-block p { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+
+/* 已录入：实线边框 + 正常文字色，跟「待填充」的虚线灰块一眼区分 */
+.placeholder-block.filled { border-style: solid; background: var(--panel); }
+.placeholder-block.filled h3 .ph-tag.done {
+  background: color-mix(in srgb, var(--ok) 15%, transparent);
+  color: var(--ok);
+}
+/* pre-wrap：作者在编辑框里按回车换的行必须保留（例如把「王冠：…」单独起一行）。
+   默认的 white-space:normal 会把换行折叠成空格，排版就散了。 */
+.placeholder-block.filled p {
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 武装的多条列表（每件一行，末尾可带一条总注） */
+.desc-list { margin: 0; padding-left: 1.15em; display: grid; gap: 6px; }
+.desc-list li {
+  line-height: 1.8;
+  color: var(--text);
+  font-size: 13.5px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 
 .kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
 .kv dt { color: var(--muted); font-size: 13px; }
@@ -766,6 +796,26 @@ a.rel-node:hover {
 }
 .link-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .link-card.is-hidden { opacity: 0.55; }
+/* 有配图时卡片改成上下两段：图在上、文字行在下。
+   不能只是往 flex 行里塞一张图 —— 分享卡是竖长海报，会把整行撑成一根柱子。 */
+.link-card.has-figure { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.link-figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--accent-weak);
+  overflow: hidden;
+}
+.link-figure img {
+  display: block;
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.link-body { display: flex; gap: 13px; min-width: 0; }
 .link-card .entry-icon { width: 40px; height: 40px; font-size: 20px; }
 .link-main { min-width: 0; flex: 1; }
 .link-title { font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -868,3 +918,92 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .toast.ok { background: var(--ok); }
 
 .muted { color: var(--muted); }
+
+/* ==========================================================================
+   图标位 = 表情包（emoji 或图片）
+   --------------------------------------------------------------------------
+   一个字段两种填法，所以每条尺寸规则都要同时照顾「画文字」和「画图片」。
+   图片一律 object-fit: contain —— 用 cover 会把表情包裁掉半张脸。
+   ========================================================================== */
+
+.icon-text { line-height: 1; }
+
+/* 图片读不到时的记号：必须看得见，否则又变成「这个位置不支持插图」的错觉 */
+.icon-text.icon-broken {
+  color: var(--warn, #d98a00);
+  font-size: 0.85em;
+  cursor: help;
+}
+
+.icon-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+/* 各图标位的容器尺寸（图片按容器撑满） */
+.tile-icon .icon-img { max-width: 44px; max-height: 44px; margin: 0 auto; }
+.board-icon .icon-img { width: 30px; height: 30px; display: inline-block; vertical-align: -7px; }
+.char-icon { overflow: hidden; }
+.char-icon .icon-img { width: 20px; height: 20px; }
+.entry-icon { overflow: hidden; }
+.entry-icon .icon-img { width: 32px; height: 32px; }
+.detail-icon { display: inline-flex; width: 30px; height: 30px; vertical-align: -5px; margin-right: 6px; }
+.detail-icon .icon-img { width: 100%; height: 100%; }
+.char-figure .placeholder .glyph .icon-img,
+.gallery .placeholder .glyph .icon-img { width: 44px; height: 44px; margin: 0 auto; }
+.rel-avatar .glyph .icon-img { width: 60%; height: 60%; margin: 0 auto; }
+
+/* 编辑器里的图标位：输入框 + 预览 + 选图按钮 */
+.icon-row { display: flex; gap: 8px; align-items: center; }
+.icon-row input { flex: 1; min-width: 0; }
+.icon-preview {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  background: var(--accent-weak);
+  font-size: 18px;
+  overflow: hidden;
+}
+.icon-preview[data-kind="图片"] { border-style: solid; }
+
+/* 选图对话框 */
+.dialog-wide { max-width: min(760px, calc(100vw - 32px)); }
+.icon-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 10px;
+  max-height: min(46vh, 420px);
+  overflow: auto;
+  padding: 2px;
+}
+.icon-pick {
+  display: grid;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  cursor: pointer;
+  text-align: center;
+  font: inherit;
+  color: inherit;
+}
+.icon-pick:hover { border-color: var(--accent); background: var(--accent-weak); }
+.icon-pick img {
+  width: 100%;
+  height: 84px;
+  object-fit: contain;
+  background: var(--accent-weak);
+  border-radius: 7px;
+}
+.icon-pick-name { font-size: 11px; word-break: break-all; line-height: 1.25; }
+.icon-pick-dir { font-size: 10px; color: var(--muted); }

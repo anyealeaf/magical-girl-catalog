@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T03:33:06.535Z",
+  "generatedAt": "2026-09-15T10:30:02.745Z",
   "maxSide": 1600,
   "quality": 85,
   "cover": "assets/cover/封面.jpg",
@@ -25,16 +25,8 @@
       "bytes": 82501
     },
     {
-      "out": "assets/char/晕彩.jpg",
-      "bytes": 174293
-    },
-    {
       "out": "assets/char/魔法少女桃夭.jpg",
       "bytes": 90154
-    },
-    {
-      "out": "assets/char/桃夭.jpg",
-      "bytes": 154779
     },
     {
       "out": "assets/char/苏桃夭.jpg",
@@ -45,20 +37,12 @@
       "bytes": 98702
     },
     {
-      "out": "assets/char/铃兰.jpg",
-      "bytes": 217202
-    },
-    {
       "out": "assets/char/安若素.jpg",
       "bytes": 95498
     },
     {
       "out": "assets/char/魔王.jpg",
       "bytes": 125898
-    },
-    {
-      "out": "assets/char/魔王-海报.jpg",
-      "bytes": 199041
     },
     {
       "out": "assets/char/战斗形态魔王.jpg",
@@ -69,10 +53,6 @@
       "bytes": 102856
     },
     {
-      "out": "assets/char/曼珠沙华.jpg",
-      "bytes": 184631
-    },
-    {
       "out": "assets/char/缇娜.jpg",
       "bytes": 118655
     },
@@ -81,20 +61,8 @@
       "bytes": 132728
     },
     {
-      "out": "assets/char/白水仙.jpg",
-      "bytes": 209029
-    },
-    {
-      "out": "assets/char/见晴1.jpg",
-      "bytes": 84982
-    },
-    {
       "out": "assets/char/见晴2.jpg",
       "bytes": 77990
-    },
-    {
-      "out": "assets/char/见晴3.jpg",
-      "bytes": 84740
     },
     {
       "out": "assets/char/魔法少女变彩.jpg",
@@ -102,10 +70,6 @@
     },
     {
       "out": "assets/char/白泊.jpg",
-      "bytes": 191446
-    },
-    {
-      "out": "assets/char/白泊-人设图.jpg",
       "bytes": 84000
     },
     {
@@ -177,10 +141,6 @@
       "bytes": 122657
     },
     {
-      "out": "assets/char/牡丹.jpg",
-      "bytes": 117571
-    },
-    {
       "out": "assets/char/墨玉.jpg",
       "bytes": 90329
     },
@@ -223,6 +183,10 @@
     {
       "out": "assets/char/宋期兰.jpg",
       "bytes": 147541
+    },
+    {
+      "out": "assets/link/番茄小说分享图.jpg",
+      "bytes": 128514
     }
   ]
 }
