@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T03:17:32.387Z",
+  "generatedAt": "2026-09-15T03:33:06.535Z",
   "maxSide": 1600,
   "quality": 85,
   "cover": "assets/cover/封面.jpg",
@@ -54,10 +54,10 @@
     },
     {
       "out": "assets/char/魔王.jpg",
-      "bytes": 199041
+      "bytes": 125898
     },
     {
-      "out": "assets/char/魔王.jpg",
+      "out": "assets/char/魔王-海报.jpg",
       "bytes": 199041
     },
     {
@@ -102,10 +102,10 @@
     },
     {
       "out": "assets/char/白泊.jpg",
-      "bytes": 84000
+      "bytes": 191446
     },
     {
-      "out": "assets/char/白泊.jpg",
+      "out": "assets/char/白泊-人设图.jpg",
       "bytes": 84000
     },
     {

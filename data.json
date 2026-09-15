@@ -161,7 +161,7 @@
       "icon": "👑",
       "images": [
         "assets/char/魔王.jpg",
-        "assets/char/魔王.jpg",
+        "assets/char/魔王-海报.jpg",
         "assets/char/战斗形态魔王.jpg"
       ],
       "hidden": false,
@@ -174,7 +174,7 @@
       "connections": [],
       "imageUrls": [
         "assets/char/魔王.jpg",
-        "assets/char/魔王.jpg",
+        "assets/char/魔王-海报.jpg",
         "assets/char/战斗形态魔王.jpg"
       ],
       "imageUrl": "assets/char/魔王.jpg"
@@ -259,7 +259,7 @@
       "images": [
         "assets/char/魔法少女变彩.jpg",
         "assets/char/白泊.jpg",
-        "assets/char/白泊.jpg"
+        "assets/char/白泊-人设图.jpg"
       ],
       "hidden": false,
       "extra": {},
@@ -272,7 +272,7 @@
       "imageUrls": [
         "assets/char/魔法少女变彩.jpg",
         "assets/char/白泊.jpg",
-        "assets/char/白泊.jpg"
+        "assets/char/白泊-人设图.jpg"
       ],
       "imageUrl": "assets/char/魔法少女变彩.jpg"
     },
